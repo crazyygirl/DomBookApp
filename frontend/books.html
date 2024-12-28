@@ -12,46 +12,39 @@
 
     </div>
     <div id="buttonDiv">
-        <button>show available books</button>
-        <button>show borrowed books</button>
+        <button id="AvlBooks">show available books</button>
+        <button id="borrowed">show borrowed books</button>
     </div>
+    <div id="Booksshelf"></div>
 </body>
 <script>
         let BaseUrl = "https://gregarious-dolomite-explanation.glitch.me/"
 
-    if(userType="admin"){
-        alert("logged as admin")
-        if(localStorage.getItem("loginData")!==""){
-         let LoginUser = parse(localStorage.getItem("loginData"));
-         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
-         if(user){
-            alert("admin found")
-            
-         }
-         else{
-            alert("admin not Logged In")
-         }
-        }else{
+            let bookshelf = document.getElementById("Booksshelf");
 
-        }
-    }
-    else{
-        alert("logged as user")
-        if(localStorage.getItem("loginData")!==""){
-         let LoginUser = parse(localStorage.getItem("loginData"));
-         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
-         if(user){
-            alert("user found")
-            
-         }
-         else{
-            alert("user Not Logged In")
-         }
-        }else{
+            let showAvlBooks = document.getElementById("AvlBooks")
+            let showBorrowed = document.getElementById("borrowed")
 
-        }
- 
-    }
+            showAvlBooks.addEventListener("click",(event)=>{
+                fetch(`${BaseUrl}/books`)
+            .then((res) => res.json())
+            .then(books => {
+              const bookCard = books.map( books =>{
+                return `<div id="bookCard">
+                <img src ="${books.imageUrl}">
+                <h3>Title: ${books.title}</h3>
+                <h4>Author: ${books.author}</h4>
+                <h4>Category: ${books.category}</h4>
+                <button>Borrow</button>
+            </div>`;
+
+              }).join(' ');
+              bookshelf.innerHTML = bookCard
+            });
+
+            })
+         
+   
 </script>
 <script src="/DomBookApp/scripts/navbar.js"></script>
 

@@ -10,7 +10,7 @@
     <div id="nav"></div>
     <div id="formDiv">
       <form id="form">
-        <h3>Books Entry </h3>
+        <h3>Books Entry</h3>
         <input id="Title" placeholder="enter title" type="text" value="" />
         <input id="author" placeholder="enter author" type="text" value="" />
         <select id="selected">
@@ -18,7 +18,7 @@
           <option>techincal</option>
           <option>comedy</option>
         </select>
-        <input type="submit" value="save" id="save"/>
+        <input type="submit" value="save" id="save" />
       </form>
     </div>
     <div id="Booksshelf"></div>
@@ -27,82 +27,68 @@
     let BaseUrl = "https://gregarious-dolomite-explanation.glitch.me/";
 
     if ((userType = "admin")) {
-      let userType = "admin";
-      // alert("logged as admin")
-      if (localStorage.getItem("loginData") !== "") {
-        //  let LoginUser = parse(localStorage.getItem("loginData"));
-        //  let user = LoginUser.find((el,i)=>{el.email==userEmail   })
-        if ((userType = "admin")) {
-          alert("admin user found");
-          let bookshelf = document.getElementById("Booksshelf");
-          fetch(`${BaseUrl}/books`)
-            .then((res) => res.json())
-            .then(books => {
-              const bookCard = books.map( books =>{
+      alert("Logged in as Admin.");
+
+      //  let LoginUser = parse(localStorage.getItem("loginData"));
+      //  let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+        let bookshelf = document.getElementById("Booksshelf");
+        fetch(`${BaseUrl}/books`)
+          .then((res) => res.json())
+          .then((books) => {
+            const bookCard = books
+              .map((books) => {
                 return `<div id="bookCard">
                 <img src ="${books.imageUrl}">
-                <h3>Title:${books.title}</h3>
-                <h4>Author:${books.author}</h4>
-                <h4>Categoty:${books.category}</h4>
+                <h3>Title: ${books.title}</h3>
+                <h4>Author: ${books.author}</h4>
+                <h4>Category: ${books.category}</h4>
             </div>`;
-
-              }).join(' ');
-              bookshelf.innerHTML = bookCard
-            });
-
-          let form = document.getElementById("form");
-          form.addEventListener("submit", (e) => {
-            event.preventDefault();
-            let title = document.getElementById("Title").value;
-            let author = document.getElementById("author").value;
-            let category = document.getElementById("selected").value;
-            let isAvailable = "true";
-            let isVerified = "false";
-            let imageUrl =
-              "https://m.media-amazon.com/images/I/71ZB18P3inL._SY522_.jpg";
-            let BooksObj = {
-              title,
-              author,
-              category,
-              isAvailable,
-              isVerified,
-              imageUrl,
-            };
-
-            fetch(`${BaseUrl}/books`, {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(BooksObj),
-            })
-              .then(() => {
-                alert("Book Added Successfully. ");
-                form.reset();
-                window.reload()
               })
-              .catch((err) => {
-                console.log(err);
-              });
+              .join(" ");
+            bookshelf.innerHTML = bookCard;
           });
-        } else {
-          // alert("Admin Not Logged In")
-        }
-      }
-    } else {
-      alert("logged as user");
-      if (localStorage.getItem("loginData") !== "") {
-        let LoginUser = parse(localStorage.getItem("loginData"));
-        let user = LoginUser.find((el, i) => {
-          el.email == userEmail;
+
+        let form = document.getElementById("form");
+        form.addEventListener("submit", (e) => {
+          event.preventDefault();
+          let title = document.getElementById("Title").value;
+          let author = document.getElementById("author").value;
+          let category = document.getElementById("selected").value;
+          let isAvailable = "true";
+          let isVerified = "false";
+          let imageUrl =
+            "https://m.media-amazon.com/images/I/71ZB18P3inL._SY522_.jpg";
+          let BooksObj = {
+            title,
+            author,
+            category,
+            isAvailable,
+            isVerified,
+            imageUrl,
+          };
+
+          fetch(`${BaseUrl}/books`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(BooksObj),
+          })
+            .then(() => {
+              alert("Book Added Successfully. ");
+              // form.reset();
+              window.reload();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
-        if (user) {
-          // alert(" user found")
-        } else {
-          // alert("user Not Logged In")
-        }
-      } else {
-      }
+      
+    } else {
+
+      window.location = "books.html";
+
+     
     }
   </script>
   <script src="/DomBookApp/scripts/navbar.js"></script>

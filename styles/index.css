@@ -70,8 +70,8 @@ button{
 
 }
 #bookCard>img{
-    height: 20%;
-    width: 90%;
+    height:300px;
+    width: 100%;
 }
 h3{
     color: white;
