@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/DomBookApp/styles/index.css"/>
+
+</head>
+<body>
+    <div id="nav">
+
+    </div>
+    <div id="formDiv">
+        <form id="form">
+            <input id="Title" placeholder="enter title" type="text" value="">
+            <input id="author" placeholder="enter author" type="text" value="">
+            <select id="selected">
+                <option>fiction</option>
+                <option>techincal</option>
+                <option>comedy</option>
+
+            </select>
+            <input type="submit" value="save">
+        </form>
+    </div>
+     
+   
+    
+</body>
+<script>
+    if(userType="admin"){
+        alert("logged as admin")
+        if(localStorage.getItem("loginData")!==""){
+         let LoginUser = parse(localStorage.getItem("loginData"));
+         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+         if(user){
+            alert("admin user found")
+
+            let form = document.getElementById("form");
+            form.addEventListener("submit",(e)=>{
+
+                event.preventDefault();
+                let title = document.getElementById("Title").value;
+                let author = document.getElementById("author").value;
+                let category = document.getElementById("selected").value;
+                let BooksObj = {title , author , category}
+
+                fetch("https://gregarious-dolomite-explanation.glitch.me/books")
+                .then((res)=>res.json())
+                .then((data)=>{
+                    
+                })
+
+
+            })
+            
+         }
+         else{
+            alert("Admin Not Logged In")
+         }
+        }
+    }
+    else{
+        alert("logged as user")
+        if(localStorage.getItem("loginData")!==""){
+         let LoginUser = parse(localStorage.getItem("loginData"));
+         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+         if(user){
+            alert(" user found")
+            
+         }
+         else{
+            alert("user Not Logged In")
+
+
+         }
+        }else{
+
+        }
+ 
+    }
+</script>
+<script src="/DomBookApp/scripts/navbar.js"></script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/DomBookApp/styles/index.css"/>
+
+</head>
+<body>
+    <div id="nav">
+
+    </div>
+    <div id="buttonDiv">
+        <button>show available books</button>
+        <button>show borrowed books</button>
+    </div>
+</body>
+<script>
+    if(userType="admin"){
+        alert("logged as admin")
+        if(localStorage.getItem("loginData")!==""){
+         let LoginUser = parse(localStorage.getItem("loginData"));
+         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+         if(user){
+            alert("admin found")
+            
+         }
+         else{
+            alert("admin not Logged In")
+         }
+        }else{
+
+        }
+    }
+    else{
+        alert("logged as user")
+        if(localStorage.getItem("loginData")!==""){
+         let LoginUser = parse(localStorage.getItem("loginData"));
+         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+         if(user){
+            alert("user found")
+            
+         }
+         else{
+            alert("user Not Logged In")
+         }
+        }else{
+
+        }
+ 
+    }
+</script>
+<script src="/DomBookApp/scripts/navbar.js"></script>
+
+</html>

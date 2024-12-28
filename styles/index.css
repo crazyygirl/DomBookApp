@@ -1,0 +1,45 @@
+#nav{
+    background-color: cornflowerblue;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+}
+a{
+    color: azure;
+    text-decoration: none;
+    margin: 0 0 0 20px;
+    font-size: 20px;
+}
+#formDiv{
+    background-color: cornflowerblue;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0 0 0;
+}
+form{
+    background-color: cornflowerblue;
+    width: 300px;
+    height: max-content;
+
+}
+form>input{
+   background-color: cyan; 
+   margin: 10px;
+}
+#buttonDiv{
+    margin: 50px 20px 0 50px;
+}
+button{
+
+    background-color: cornflowerblue;
+    color: white;
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    border: 2px cornflowerblue;
+}
