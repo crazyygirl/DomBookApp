@@ -1,85 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/DomBookApp/styles/index.css"/>
-
-</head>
-<body>
-    <div id="nav">
-
-    </div>
+    <link rel="stylesheet" href="/DomBookApp/styles/index.css" />
+  </head>
+  <body>
+    <div id="nav"></div>
     <div id="formDiv">
-        <form id="form">
-            <input id="Title" placeholder="enter title" type="text" value="">
-            <input id="author" placeholder="enter author" type="text" value="">
-            <select id="selected">
-                <option>fiction</option>
-                <option>techincal</option>
-                <option>comedy</option>
-
-            </select>
-            <input type="submit" value="save">
-        </form>
+      <form id="form">
+        <input id="Title" placeholder="enter title" type="text" value="" />
+        <input id="author" placeholder="enter author" type="text" value="" />
+        <select id="selected">
+          <option>fiction</option>
+          <option>techincal</option>
+          <option>comedy</option>
+        </select>
+        <input type="submit" value="save" />
+      </form>
     </div>
-     
-   
-    
-</body>
-<script>
-    if(userType="admin"){
-        alert("logged as admin")
-        if(localStorage.getItem("loginData")!==""){
-         let LoginUser = parse(localStorage.getItem("loginData"));
-         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
-         if(user){
-            alert("admin user found")
+    <div id="Booksshelf"></div>
+  </body>
+  <script>
+    let BaseUrl = "https://gregarious-dolomite-explanation.glitch.me/";
 
-            let form = document.getElementById("form");
-            form.addEventListener("submit",(e)=>{
+    if ((userType = "admin")) {
+      let userType = "admin";
+      // alert("logged as admin")
+      if (localStorage.getItem("loginData") !== "") {
+        //  let LoginUser = parse(localStorage.getItem("loginData"));
+        //  let user = LoginUser.find((el,i)=>{el.email==userEmail   })
+        if ((userType = "admin")) {
+          alert("admin user found");
+          let bookshelf = document.getElementById("Booksshelf");
+          fetch(`${BaseUrl}/books`)
+            .then((res) => res.json())
+            .then(books => {
+              const bookCard = books.map( books =>{
+                return `<div id="bookCard">
+                <img src ="${books.imageUrl}">
+                <h3>${books.title}</h3>
+                <h4>${books.author}</h4>
+                <h4>${books.category}</h4>
+            </div>`;
 
-                event.preventDefault();
-                let title = document.getElementById("Title").value;
-                let author = document.getElementById("author").value;
-                let category = document.getElementById("selected").value;
-                let BooksObj = {title , author , category}
+              }).join(' ');
+              bookshelf.innerHTML = bookCard
+            });
 
-                fetch("https://gregarious-dolomite-explanation.glitch.me/books")
-                .then((res)=>res.json())
-                .then((data)=>{
-                    
-                })
+          let form = document.getElementById("form");
+          form.addEventListener("submit", (e) => {
+            event.preventDefault();
+            let title = document.getElementById("Title").value;
+            let author = document.getElementById("author").value;
+            let category = document.getElementById("selected").value;
+            let isAvailable = "true";
+            let isVerified = "false";
+            let imageUrl =
+              "https://m.media-amazon.com/images/I/71ZB18P3inL._SY522_.jpg";
+            let BooksObj = {
+              title,
+              author,
+              category,
+              isAvailable,
+              isVerified,
+              imageUrl,
+            };
 
-
+            fetch(`${BaseUrl}/books`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(BooksObj),
             })
-            
-         }
-         else{
-            alert("Admin Not Logged In")
-         }
+              .then(() => {
+                alert("Book Added Successfully. ");
+                form.reset();
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+        } else {
+          // alert("Admin Not Logged In")
         }
-    }
-    else{
-        alert("logged as user")
-        if(localStorage.getItem("loginData")!==""){
-         let LoginUser = parse(localStorage.getItem("loginData"));
-         let user = LoginUser.find((el,i)=>{el.email==userEmail   })
-         if(user){
-            alert(" user found")
-            
-         }
-         else{
-            alert("user Not Logged In")
-
-
-         }
-        }else{
-
+      }
+    } else {
+      alert("logged as user");
+      if (localStorage.getItem("loginData") !== "") {
+        let LoginUser = parse(localStorage.getItem("loginData"));
+        let user = LoginUser.find((el, i) => {
+          el.email == userEmail;
+        });
+        if (user) {
+          // alert(" user found")
+        } else {
+          // alert("user Not Logged In")
         }
- 
+      } else {
+      }
     }
-</script>
-<script src="/DomBookApp/scripts/navbar.js"></script>
+  </script>
+  <script src="/DomBookApp/scripts/navbar.js"></script>
 </html>
