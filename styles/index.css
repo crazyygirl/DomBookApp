@@ -13,23 +13,35 @@ a{
     font-size: 20px;
 }
 #formDiv{
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
     height: 300px;
-    width: 300px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 100px 0 0 0;
+    margin: 50px 0 0 0;
 }
 form{
     background-color: cornflowerblue;
     width: 300px;
-    height: max-content;
+    height: 250px;
 
 }
 form>input{
-   background-color: cyan; 
    margin: 10px;
+   width: 70%;
+    
+}
+form>select{
+   margin: 10px;
+    width: 70%;
+
+}
+#save{
+    background-color: darkslateblue;
+    color: aliceblue;
+    width: 50%;
+
 }
 #buttonDiv{
     margin: 50px 20px 0 50px;
@@ -42,4 +54,25 @@ button{
     width: 150px;
     border-radius: 10px;
     border: 2px cornflowerblue;
+}
+#Booksshelf{
+    margin: 30px;
+    display: grid;
+    grid-template-columns: repeat(4,300px);
+    gap:20px;
+    justify-content: center;
+}
+#bookCard{
+    height: max-content;
+    width: 300px;
+    background-color: rgb(75, 130, 232);
+    color: white;
+
+}
+#bookCard>img{
+    height: 20%;
+    width: 90%;
+}
+h3{
+    color: white;
 }
